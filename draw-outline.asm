@@ -62,7 +62,7 @@ dol_delta_x_positive
   ror.l   #4,d0                                ;Shift-Bits to bits 12-15
   MULUF.W (pf_bitplane_width*pf_depth)/2,d1,d4 ;Y offset in bitmap
   add.w   d0,d1                                ;x + y offset
-  add.w   d1,d1                                ;Get correct x/y offset
+  add.l   d1,d1                                ;Get correct x/y offset
   cmp.w   d2,d3                                ;dx <= dy ?
   ble.s   dol_delta_positive
   sub.w   #BLTCON1F_SUD,d5
