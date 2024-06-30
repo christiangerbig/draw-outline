@@ -5,4 +5,4 @@ This is a very fast outline drawing routine for filled vectors on the Commodore 
 Advantages:
 
 - No octants table is needed
-- No XOR blit is needed for the edges, they are blunt
+- No XOR blit for the edges, they are blunt
