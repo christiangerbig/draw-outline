@@ -18,12 +18,12 @@ BLTBDAT				EQU $0072
 DMAB_BLTDONE			EQU 14
 
 ; ** Blitter channels **
-BC0F_DEST			EQU $0100										; ** Blitter channels **
+BC0F_DEST			EQU $0100
 BC0F_SRCC			EQU $0200
 BC0F_SRCA			EQU $0800
 
 ; ** Blitter minterms **
-ABNC				EQU $40											; ** Minterms **
+ABNC				EQU $40
 NABC				EQU $08
 NANBC				EQU $02
 
