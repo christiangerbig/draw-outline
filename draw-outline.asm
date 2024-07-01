@@ -35,8 +35,8 @@ BLTCON1F_SING			EQU $0002
 BLTCON1F_LINE			EQU $0001
 
 ; ** Line drawing mode **
-bltcon0_bits			EQU BC0F_SRCA+BC0F_SRCC+BC0F_DEST+NANBC+NABC+ABNC
-bltcon1_bits			EQU BLTCON1F_LINE+BLTCON1F_SING
+bltcon0_bits			EQU BC0F_SRCA+BC0F_SRCC|BC0F_DEST+NANBC|NABC+ABNC
+bltcon1_bits			EQU BLTCON1F_LINE|BLTCON1F_SING
 
 ; ** Playfield/Bitplane dimensions **
 pf_x_size			EQU 320
@@ -54,6 +54,7 @@ pf_plane_y_multiplier		EQU pf_plane_width*pf_depth
 ; d7.w ... Colour number 1..3
 ; a2.l ... Pointer to interleaved bitplanes
 ; a6.l ... CUSTOM+DMACONR
+	CNOP 0,4
 draw_outline
 	cmp.w	d1,d3
 	beq	dol_no_line		;y1 = y2 ?
@@ -133,4 +134,3 @@ dol_init_line_blit
 	rts
 
 	END
-	
