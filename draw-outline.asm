@@ -96,7 +96,7 @@ dol_no_sign_bit
 	lsl.w	#4,d2			;((4*dx)+(1*4))*16 = length of line
 	addq.w	#2,d2			;Width = 1 word
 	add.l	a2,d1
-	add.l	#(bltcon0_bits<<16)+(bltcon1_bits),d0
+	add.l	#(bltcon0_bits<<16)|(bltcon1_bits),d0
 	btst	#0,d7			;Bitplane 1 ?
 	beq.s	dol_check_second_bitplane
 	WAITBLIT
@@ -122,7 +122,7 @@ dol_no_line
 	rts
 
 	CNOP 0,4
-dol_init
+dol_init_line_blit
 	WAITBLIT
 	move.l	#$ffff8000,BLTBDAT-DMACONR(a6) ;Hi-word: line texture, Lo-word: start line texture with MSB
 	moveq	#-1,d0
@@ -133,3 +133,4 @@ dol_init
 	rts
 
 	END
+	
