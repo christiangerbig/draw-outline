@@ -1,11 +1,12 @@
-WAITBLIT MACRO
+WAITBLIT	MACRO
 	tst.w	(a6)			;For OCS A1000/A2000-A blitter bug
-wb_loop\@
- 	btst	#DMAB_BLTDONE-8,(a6)
-	bne.s	wb_loop\@
-	ENDM
+waitblit_loop\@
+	btst	#DMAB_BLTDONE-8,(a6)
+	bne.s	waitblit_loop\@
+		ENDM
 
-MULUF MACRO
+
+MULUF		MACRO
 ; \0 ... Size W/L
 ; \1 ... 16/32-Bit factor
 ; \2 ... Product
@@ -18,4 +19,4 @@ MULUF MACRO
 		lsl.\0   #3,\3
 		add.\0   \3,\2
 	ENDC
-	ENDM
+		ENDM
