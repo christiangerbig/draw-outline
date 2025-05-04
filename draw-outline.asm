@@ -46,13 +46,13 @@ pf_plane_y_multiplier		EQU pf_plane_width*pf_depth
 
 
 ; Input
-; d0.l	... P1(x)
-; d1.l	... P1(y)
-; d2.l	... P2(x)
-; d3.l	... P2(y)
-; d7.w	... Colour number [1..3]
-; a2.l	... Pointer interleaved bitplanes
-; a6.l	... CUSTOM+DMACONR
+; d0.l	P1(x)
+; d1.l	P1(y)
+; d2.l	P2(x)
+; d3.l	P2(y)
+; d7.w	Colour number [1..3]
+; a2.l	Pointer interleaved bitplanes
+; a6.l	CUSTOM+DMACONR
 ; Result
 	CNOP 0,4
 draw_outline
@@ -98,7 +98,7 @@ dol_no_sign_bit
 	addq.w	#2,d2			; width = 1 word
 	add.l	a2,d1
 	add.l	#(bltcon0_bits<<16)|(bltcon1_bits),d0
-	btst	#0,d7			; bitplane1 ?
+	btst	#0,d7			; bitplane 1 ?
 	beq.s	dol_check_second_bitplane
 	WAITBLIT
 	move.l	d0,BLTCON0-DMACONR(a6)	; bits 0-15: BLTCON1, bits 16-31: BLTCON0
@@ -108,7 +108,7 @@ dol_no_sign_bit
 	move.l	d4,BLTBMOD-DMACONR(a6)	; bits 0-15: (4*dy)-(4*dx), bits 16-31: 4*dy
 	move.w	d2,BLTSIZE-DMACONR(a6)	; start blitter operation
 dol_check_second_bitplane
-	btst	#1,d7			; bitplane2 ?
+	btst	#1,d7			; bitplane 2 ?
 	beq.s	dol_no_line
 	moveq	#pf_plane_width,d5
 	add.l	d5,d1			; next interleaved bitplane
@@ -127,7 +127,7 @@ dol_init_line_blit
 	WAITBLIT
 	move.l	#$ffff8000,BLTBDAT-DMACONR(a6) ; bits 0-15: start line texture with MSB, bits 16-31: line texture
 	moveq	#-1,d0
-	move.l	d0,BLTAFWM-DMACONR(a6)	; no Mask
+	move.l	d0,BLTAFWM-DMACONR(a6)	; no mask
 	moveq	#pf_plane_width*pf_depth,d0 ; interleaved bitplane moduli
 	move.w	d0,BLTCMOD-DMACONR(a6)
 	move.w	d0,BLTDMOD-DMACONR(a6)

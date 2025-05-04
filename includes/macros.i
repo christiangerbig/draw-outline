@@ -10,10 +10,10 @@ waitblit_loop\@
 
 MULUF				MACRO
 ; Input
-; \0 ...	Size [W/L]
-; \1 ...	16/32-Bit factor
-; \2 ...	Product
-; \3 ...	Scratch register
+; \0	Size [W/L]
+; \1 	16/32 bit factor
+; \2 	Product
+; \3 	Scratch register
 ; Result
 	IFEQ (\1)-40
 		move.\0  \2,\3		; (32*x)+(8*x) = 40*x
