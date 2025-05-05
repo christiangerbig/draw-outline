@@ -92,7 +92,7 @@ dol_delta_positive
 	or.w	#BLTCON1F_SIGN,d0	; set sign bit
 dol_no_sign_bit
 	add.w	d2,d2			; 2*(2*dx) = 4*dx
-	sub.w	d2,d4			; bits 0-15: (4*dy)-(4*dx)
+	sub.w	d2,d4			; low word: (4*dy)-(4*dx)
 	addq.w	#1*4,d2			; (4*dx)+(1*4)
 	lsl.w	#4,d2			; length = ((4*dx)+(1*4))*16
 	addq.w	#2,d2			; width = 1 word
@@ -101,11 +101,11 @@ dol_no_sign_bit
 	btst	#0,d7			; bitplane 1 ?
 	beq.s	dol_check_second_bitplane
 	WAITBLIT
-	move.l	d0,BLTCON0-DMACONR(a6)	; bits 0-15: BLTCON1, bits 16-31: BLTCON0
+	move.l	d0,BLTCON0-DMACONR(a6)	; low word: BLTCON1, high word: BLTCON0
 	move.w	d3,BLTAPTL-DMACONR(a6)	; (4*dy)-(2*dx)
 	move.l	d1,BLTCPT-DMACONR(a6)	; source bitplanes address
 	move.l	d1,BLTDPT-DMACONR(a6)	; destination bitplanes address
-	move.l	d4,BLTBMOD-DMACONR(a6)	; bits 0-15: (4*dy)-(4*dx), bits 16-31: 4*dy
+	move.l	d4,BLTBMOD-DMACONR(a6)	; low word: (4*dy)-(4*dx), high word: 4*dy
 	move.w	d2,BLTSIZE-DMACONR(a6)	; start blitter operation
 dol_check_second_bitplane
 	btst	#1,d7			; bitplane 2 ?
@@ -113,11 +113,11 @@ dol_check_second_bitplane
 	moveq	#pf_plane_width,d5
 	add.l	d5,d1			; next interleaved bitplane
 	WAITBLIT
-	move.l	d0,BLTCON0-DMACONR(a6)	; bits 0-15: BLTCON1, bits 16-31: BLTCON0
+	move.l	d0,BLTCON0-DMACONR(a6)	; low word: BLTCON1, high word: BLTCON0
 	move.w	d3,BLTAPTL-DMACONR(a6)	; (4*dy)-(2*dx)
 	move.l	d1,BLTCPT-DMACONR(a6)	; source bitplanes address
 	move.l	d1,BLTDPT-DMACONR(a6)	; destination bitplanes address
-	move.l	d4,BLTBMOD-DMACONR(a6)	; bits 0-15: (4*dy)-(4*dx), bits 16-31: 4*dy
+	move.l	d4,BLTBMOD-DMACONR(a6)	; low word: (4*dy)-(4*dx), high word: 4*dy
 	move.w	d2,BLTSIZE-DMACONR(a6)	; start blitter operation
 dol_no_line
 	rts
