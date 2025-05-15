@@ -84,9 +84,9 @@ dol_delta_positive
 	add.w	d3,d3
 	move.w	d5,d0			; save octant
 	move.w	d3,d4			; save 4*dy
-	swap	d4			; bits 16-31: 4*dy
+	swap	d4			; high word: 4*dy
 	add.w	d2,d2			; dx*2
-	move.w	d3,d4			; bits 0-15: 4*dy
+	move.w	d3,d4			; low word: 4*dy
 	sub.w	d2,d3			; (4*dy)-(2*dx)
 	bpl.s	dol_no_sign_bit
 	or.w	#BLTCON1F_SIGN,d0	; set sign bit
@@ -125,7 +125,7 @@ dol_no_line
 	CNOP 0,4
 dol_init_line_blit
 	WAITBLIT
-	move.l	#$ffff8000,BLTBDAT-DMACONR(a6) ; bits 0-15: start line texture with MSB, bits 16-31: line texture
+	move.l	#$ffff8000,BLTBDAT-DMACONR(a6) ; low word: start line texture with MSB, high word: line texture
 	moveq	#-1,d0
 	move.l	d0,BLTAFWM-DMACONR(a6)	; no mask
 	moveq	#pf_plane_width*pf_depth,d0 ; interleaved bitplane moduli
