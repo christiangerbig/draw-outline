@@ -70,11 +70,11 @@ dol_delta_y_positive
 	neg.w	d2			; toggle sign bit
 dol_delta_x_positive
 	sub.w	d1,d3			; dy = y2-y1
-	ror.l	#4,d0			; adjust shift bits
+	ror.l	#4,d0			; high word: shift bits, low word: word x offset
 	MULUF.W pf_plane_y_multiplier/2,d1,d4 ; y offset
-	add.w	d0,d1			; x/y offset in bitplanes
-	add.l	d1,d1			; adjust x/y offset
-	cmp.w	d2,d3			; dx<=dy ?
+	add.w	d0,d1			; add y offset
+	add.l	d1,d1			; byte x/y offset
+	cmp.w	d2,d3			; dx <= dy ?
 	ble.s	dol_delta_positive	
 	sub.w	#BLTCON1F_SUD,d5	; clear octant SUD bit
 	exg	d2,d3			; swap dx with dy
@@ -82,8 +82,8 @@ dol_delta_x_positive
 dol_delta_positive
 	add.w	d3,d3			; dy*4
 	add.w	d3,d3
-	move.w	d5,d0			; save octant
-	move.w	d3,d4			; save 4*dy
+	move.w	d5,d0			; store octant
+	move.w	d3,d4			; store 4*dy
 	swap	d4			; high word: 4*dy
 	add.w	d2,d2			; dx*2
 	move.w	d3,d4			; low word: 4*dy
