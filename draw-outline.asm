@@ -54,6 +54,7 @@ pf_plane_y_multiplier		EQU pf_plane_width*pf_depth
 ; a2.l	Pointer interleaved bitplanes
 ; a6.l	CUSTOM+DMACONR
 ; Result
+; no return value
 	CNOP 0,4
 draw_outline
 	cmp.w	d1,d3
